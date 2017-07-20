@@ -10,6 +10,7 @@ var createArticle = (req,res) => {
     title: req.body.title,
     content: req.body.content,
     category: req.body.category,
+    username: req.body.username,
     author: req.body.author
   },(err,result) => {
     if (err) {
@@ -38,6 +39,7 @@ var updateArticle = (req,res) => {
     data.title = req.body.title || data.title;
     data.content = req.body.content || data.content;
     data.category = req.body.category || data.category;
+    data.username = req.body.username || data.username;
     data.author = req.body.author || data.author;
     
     data.save((err,data) => {
