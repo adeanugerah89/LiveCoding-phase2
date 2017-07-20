@@ -21,8 +21,38 @@ var createUser = (req,res) => {
   })
 }
 
+var getAllUser = (req,res) => {
+  User.find({},(err,result) => {
+    if (err) {
+      console.log(err);
+      res.send(err)
+    }
+    res.send(result)
+  })
+}
 
+var updateUser = (req,res) => {
+  var hash = bcrypt.hashSync(req.body.password, salt);
+  User.findById(req.params.id, (err,data) => {
+    if (err) {
+      console.log(err);
+      res.send(err)
+    }
+    data.username = req.body.username || data.username;
+    data.password = hash || data.password;
+    
+    data.save((err,data) => {
+      if (err) {
+        res.send(err)
+      }
+      res.send(data)
+      console.log('data already updated');
+    })
+  })
+}
 
 module.exports = {
-  createUser
+  createUser,
+  getAllUser,
+  updateUser
 }
