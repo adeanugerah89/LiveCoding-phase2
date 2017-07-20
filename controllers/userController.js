@@ -51,8 +51,28 @@ var updateUser = (req,res) => {
   })
 }
 
+var deleteUser = (req,res) => {
+  User.findByIdAndRemove(req.params.id, (err) => {
+    if (err) {
+      res.send(err)
+    }
+    res.send('data already deleted');
+  })
+}
+
+var getOneUser = (req,res) => {
+  User.findById(req.params.id,(err,data) => {
+    if (err) {
+      res.send(err)
+    }
+    res.send(data)
+  })
+}
+
 module.exports = {
   createUser,
   getAllUser,
-  updateUser
+  updateUser,
+  deleteUser,
+  getOneUser
 }
